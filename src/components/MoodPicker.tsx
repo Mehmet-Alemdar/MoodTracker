@@ -10,13 +10,25 @@ const moodOptions: MoodOptionType[] = [
   { emoji: '😤', description: 'frustrated' },
 ];
 
-export const MoodPicker: React.FC = () => {
-  const [selectedMood, setSelectedMood] = React.useState<MoodOptionType>()
+type MoodPickerProps = {
+  handleSelectMood: (moodOption: MoodOptionType) => void;
+}
+
+export const MoodPicker: React.FC<MoodPickerProps> = ({handleSelectMood}) => {
+  const [selectedMood, setSelectedMood] = React.useState<MoodOptionType>();
+
+  const handleSelect = React.useCallback(() => {
+    if(selectedMood) {
+      handleSelectMood(selectedMood)
+      setSelectedMood(undefined)
+    }
+  }, [handleSelectMood, selectedMood])
   return (
     <View style={styles.container}>
       <Text style={styles.title}>How are you right now?</Text>
-      <View style={styles.moodOptions}>{moodOptions.map(option => (
-        <View>
+      <View style={styles.moodOptions}>
+        {moodOptions.map(option => (
+        <View key={option.emoji}>
           <Pressable 
             onPress={() => setSelectedMood(option)} 
             style={[
@@ -33,7 +45,9 @@ export const MoodPicker: React.FC = () => {
           </Text>
         </View>
       ))}</View>
-      <Pressable style={styles.chooseButton}>
+      <Pressable 
+        style={styles.chooseButton}
+        onPress={() => handleSelect()}>
         <Text style={styles.chooseButtonText}>Choose</Text>
       </Pressable>
     </View>
