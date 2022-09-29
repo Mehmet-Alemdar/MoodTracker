@@ -8,9 +8,13 @@ export const History: React.FC = () => {
 
   return(
     <View>
-      {appContext.moodList.map(item => (
-        <MoodItemRow item={item} key={item.timestamp} />
-      ))}
+      {
+        appContext.moods && (
+          appContext.moods.map(item => (
+            <MoodItemRow item={item} key={item.timeStamp} />
+          ))
+        )
+      }
     </View>
   )
 }

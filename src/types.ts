@@ -5,5 +5,5 @@ export type MoodOptionType = {
 
 export type MoodOptionWithTimestamp = {
   mood: MoodOptionType;
-  timestamp: number;
+  timeStamp: number;
 }
