@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import { theme } from "../theme";
 import { MoodOptionType } from "../types";
 
 const moodOptions: MoodOptionType[] = [
@@ -80,11 +81,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 20
+    paddingVertical: 20,
+    backgroundColor: 'rgba(0,0,0,0.2)'
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 20,
+    color: theme.colorWhite
   },
   moodOptions: {
     flexDirection: 'row',
