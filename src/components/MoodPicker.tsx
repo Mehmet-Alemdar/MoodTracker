@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import { MoodOptionType } from "../types";
 
 const moodOptions: MoodOptionType[] = [
@@ -10,19 +10,37 @@ const moodOptions: MoodOptionType[] = [
   { emoji: '😤', description: 'frustrated' },
 ];
 
+const imageSrc = require('../../assets/butterflies.png')
+
 type MoodPickerProps = {
   handleSelectMood: (moodOption: MoodOptionType) => void;
 }
 
 export const MoodPicker: React.FC<MoodPickerProps> = ({handleSelectMood}) => {
   const [selectedMood, setSelectedMood] = React.useState<MoodOptionType>();
+  const [hasSelected, setHasSelected] = React.useState(false);
 
   const handleSelect = React.useCallback(() => {
     if(selectedMood) {
       handleSelectMood(selectedMood)
       setSelectedMood(undefined)
+      setHasSelected(true)
     }
   }, [handleSelectMood, selectedMood])
+
+  if(hasSelected) {
+    return (
+      <View style={styles.container}>
+        <Image source={imageSrc} style={styles.image}/>
+        <Pressable 
+          style={styles.chooseButton}
+          onPress={() => setHasSelected(false)}>
+          <Text style={styles.chooseButtonText}>Choose another!</Text>
+        </Pressable>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>How are you right now?</Text>
@@ -103,5 +121,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 14
+  },
+  image: {
+    alignSelf: 'center'
   }
 })
