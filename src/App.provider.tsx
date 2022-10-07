@@ -31,11 +31,14 @@ type AppContextType =  {
   moods: MoodOptionWithTimestamp[];
   handleSelectMood: (mood: MoodOptionType) => void;
   children?: React.ReactNode;
+  handleDeleteMood: (moodToDelete: MoodOptionWithTimestamp) => void
 }
 
 const AppContext = createContext<AppContextType>({
   moods: [],
   handleSelectMood: () => {},
+  handleDeleteMood: () => {}
+
 })
 
 export const AppProvider: React.FC<AppContextType> = ({children}) =>  {
@@ -54,6 +57,15 @@ export const AppProvider: React.FC<AppContextType> = ({children}) =>  {
     })
   }, [])
 
+  const handleDeleteMood = React.useCallback((mood: MoodOptionWithTimestamp) => {
+    setMoods(current => {
+      const newMoods = current.filter(val => val.timeStamp !== mood.timeStamp)
+
+      setAppData({moods: newMoods})
+      return newMoods
+    })
+  }, [])
+
   React.useEffect(() => {
     const fetchAppData = async () => {
       const data = await getAppData();
@@ -67,7 +79,7 @@ export const AppProvider: React.FC<AppContextType> = ({children}) =>  {
   }, [])
   
   return (
-    <AppContext.Provider value={{moods, handleSelectMood}}>
+    <AppContext.Provider value={{moods, handleSelectMood, handleDeleteMood}}>
        {children}
     </AppContext.Provider>
   )

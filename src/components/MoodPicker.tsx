@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)'
   },
   title: {
-    fontWeight: 'bold',
     fontSize: 20,
-    color: theme.colorWhite
+    color: theme.colorWhite,
+    fontFamily: theme.fontFamilyBold
   },
   moodOptions: {
     flexDirection: 'row',
@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     color: '#454C73',
-    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 10
+    fontSize: 10,
+    fontFamily: theme.fontFamilyBold
   },
   chooseButton: {
     backgroundColor: '#454c73',
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
   },
   chooseButtonText: {
     color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 14,
+    fontFamily: theme.fontFamilyBold
   },
   image: {
     alignSelf: 'center'
